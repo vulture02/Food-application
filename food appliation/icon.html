@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Rating</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .stars i {
+            font-size: 50px;
+            color: grey;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .stars i.active {
+            color: gold;
+        }
+
+        .message {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars">
+        <i class="fas fa-star" data-rating="1"></i>
+        <i class="fas fa-star" data-rating="2"></i>
+        <i class="fas fa-star" data-rating="3"></i>
+        <i class="fas fa-star" data-rating="4"></i>
+        <i class="fas fa-star" data-rating="5"></i>
+    </div>
+    <div class="message"></div>
+
+    <script>
+        const stars = document.querySelectorAll('.stars i');
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                const rating = index + 1;
+                setRating(rating);
+            });
+        });
+
+        function setRating(rating) {
+            const stars = document.querySelectorAll('.stars i');
+            const message = document.querySelector('.message');
+            
+            // Add or remove 'active' class based on the rating
+            stars.forEach((star, index) => {
+                setTimeout(() => {
+                    if (index < rating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                }, index * 100); // Delaying each transition
+            });
+
+            // Update message based on rating
+            if (rating === 1) {
+                message.textContent = "Poor";
+            } else if (rating === 2) {
+                message.textContent = "Fair";
+            } else if (rating === 3) {
+                message.textContent = "Good";
+            } else if (rating === 4) {
+                message.textContent = "Very Good";
+            } else if (rating === 5) {
+                message.textContent = "Excellent";
+            } else {
+                message.textContent = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
